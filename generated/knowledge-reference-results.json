@@ -1,0 +1,390 @@
+{
+  "cases": [
+    {
+      "answer": "根据当前有效且可读取的资料，演示型号 A-100 的服务记录归档周期为 14 天。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": false,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": true,
+        "source_metadata_withheld": false
+      },
+      "citations": [
+        {
+          "effective_from": "2026-01-01",
+          "excerpt": "第 2 条：演示型号 A-100 的服务记录归档周期为 14 天。",
+          "id": "D02",
+          "section": "第 2 条：归档周期",
+          "title": "演示型号 A-100 服务记录归档规范（现行）",
+          "version": "2.0"
+        }
+      ],
+      "conditions": "可用资料：D01、D02；模拟角色：service_reader；固定参考日期：2026-01-15",
+      "expected_status": "answered",
+      "id": "C01",
+      "label": "现行来源优先",
+      "question": "演示型号 A-100 的服务记录归档周期是多少天？",
+      "review_steps": [
+        "核对引文中的版本、生效日期与条款；本结论仅适用于本合成样例。"
+      ],
+      "status": "answered",
+      "status_label": "有据回答",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "answer": "根据当前有效且可读取的资料，演示型号 A-100 的服务记录归档周期为 14 天。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": false,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": true,
+        "source_metadata_withheld": false
+      },
+      "citations": [
+        {
+          "effective_from": "2026-01-01",
+          "excerpt": "第 2 条：演示型号 A-100 的服务记录归档周期为 14 天。",
+          "id": "D02",
+          "section": "第 2 条：归档周期",
+          "title": "演示型号 A-100 服务记录归档规范（现行）",
+          "version": "2.0"
+        }
+      ],
+      "conditions": "可用资料：D02、D01；模拟角色：service_reader；固定参考日期：2026-01-15",
+      "expected_status": "answered",
+      "id": "C02",
+      "label": "旧版不能覆盖当前",
+      "question": "请查询演示型号 A-100 的服务记录归档周期。",
+      "review_steps": [
+        "核对引文中的版本、生效日期与条款；本结论仅适用于本合成样例。"
+      ],
+      "status": "answered",
+      "status_label": "有据回答",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "answer": "未找到当前有效且可读取的依据，无法给出归档周期。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": false,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": false,
+        "source_metadata_withheld": false
+      },
+      "citations": [],
+      "conditions": "可用资料：D01；模拟角色：service_reader；固定参考日期：2026-01-15",
+      "expected_status": "insufficient_basis",
+      "id": "C03",
+      "label": "只有失效资料时不回答",
+      "question": "演示型号 A-100 的服务记录归档周期是多少天？",
+      "review_steps": [
+        "补充与型号、主题一致的现行资料，再重新核对。"
+      ],
+      "status": "insufficient_basis",
+      "status_label": "依据不足",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "answer": "未找到当前有效且可读取的依据，无法给出归档周期。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": false,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": false,
+        "source_metadata_withheld": false
+      },
+      "citations": [],
+      "conditions": "可用资料：D01、D02；模拟角色：service_reader；固定参考日期：2026-01-15",
+      "expected_status": "insufficient_basis",
+      "id": "C04",
+      "label": "没有型号依据不回答",
+      "question": "演示型号 B-900 的服务记录归档周期是多少天？",
+      "review_steps": [
+        "补充与型号、主题一致的现行资料，再重新核对。"
+      ],
+      "status": "insufficient_basis",
+      "status_label": "依据不足",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "answer": "当前有效的同级资料存在冲突，需要人工核对适用范围与覆盖关系；本次不选定归档周期。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": true,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": true,
+        "source_metadata_withheld": false
+      },
+      "citations": [
+        {
+          "effective_from": "2026-01-01",
+          "excerpt": "第 2 条：演示型号 A-100 的服务记录归档周期为 14 天。",
+          "id": "D02",
+          "section": "第 2 条：归档周期",
+          "title": "演示型号 A-100 服务记录归档规范（现行）",
+          "version": "2.0"
+        },
+        {
+          "effective_from": "2026-01-01",
+          "excerpt": "第 2 条：演示型号 A-100 的服务记录归档周期为 7 天。",
+          "id": "D03",
+          "section": "第 2 条：归档周期",
+          "title": "演示型号 A-100 服务记录归档专项说明（同级）",
+          "version": "1.0"
+        }
+      ],
+      "conditions": "可用资料：D02、D03；模拟角色：service_reader；固定参考日期：2026-01-15",
+      "expected_status": "conflict_review",
+      "id": "C05",
+      "label": "同级有效来源冲突转人工",
+      "question": "演示型号 A-100 的服务记录归档周期是多少天？",
+      "review_steps": [
+        "核对每份引文的版本、适用范围和效力等级。",
+        "由资料责任人澄清覆盖关系并更新资料后，再重新查询。"
+      ],
+      "status": "conflict_review",
+      "status_label": "冲突转人工",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "answer": "当前身份无权读取此问题所需资料，请由授权人员核对访问权限。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": false,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": true,
+        "source_metadata_withheld": true
+      },
+      "citations": [],
+      "conditions": "可用资料：受限资料（名称不回传）；模拟角色：guest；固定参考日期：2026-01-15",
+      "expected_status": "access_denied",
+      "id": "C06",
+      "label": "无权限不返回来源名称或内容",
+      "question": "演示型号 A-100 的服务记录归档周期是多少天？",
+      "review_steps": [
+        "由资料管理员核对身份与授权；授权完成后重新查询。"
+      ],
+      "status": "access_denied",
+      "status_label": "权限拒绝",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "answer": "未执行业务写入。本参考包只提供查询判定，没有业务系统连接或写入接口。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": false,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": false,
+        "source_metadata_withheld": false
+      },
+      "citations": [],
+      "conditions": "可用资料：D02；模拟角色：service_reader；固定参考日期：2026-01-15",
+      "expected_status": "action_not_executed",
+      "id": "C07",
+      "label": "业务写入动作不执行",
+      "question": "请将演示型号 A-100 的服务记录归档周期修改为 7 天，并保存到业务系统。",
+      "review_steps": [
+        "如确需业务变更，由有权人员在正式系统中按既有流程处理。"
+      ],
+      "status": "action_not_executed",
+      "status_label": "写入未执行",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "answer": "未找到当前有效且可读取的依据，无法给出归档周期。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": false,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": false,
+        "source_metadata_withheld": false
+      },
+      "citations": [],
+      "conditions": "可用资料：D02；模拟角色：service_reader；固定参考日期：2026-01-15",
+      "expected_status": "insufficient_basis",
+      "id": "C08",
+      "label": "没有主题依据不回答",
+      "question": "演示型号 A-100 的备件采购周期是多少天？",
+      "review_steps": [
+        "补充与型号、主题一致的现行资料，再重新核对。"
+      ],
+      "status": "insufficient_basis",
+      "status_label": "依据不足",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "answer": "当前身份无权读取此问题所需资料，请由授权人员核对访问权限。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": false,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": true,
+        "source_metadata_withheld": true
+      },
+      "citations": [],
+      "conditions": "可用资料：受限资料（名称不回传）；模拟角色：guest；固定参考日期：2026-01-15",
+      "expected_status": "access_denied",
+      "id": "C09",
+      "label": "无权限时不泄露冲突来源",
+      "question": "演示型号 A-100 的服务记录归档周期是多少天？",
+      "review_steps": [
+        "由资料管理员核对身份与授权；授权完成后重新查询。"
+      ],
+      "status": "access_denied",
+      "status_label": "权限拒绝",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    },
+    {
+      "answer": "未找到当前有效且可读取的依据，无法给出归档周期。",
+      "checks": {
+        "business_write_executed": false,
+        "conflict_detected": false,
+        "only_authorized_citations": true,
+        "only_current_citations": true,
+        "read_permission_checked": false,
+        "source_metadata_withheld": false
+      },
+      "citations": [],
+      "conditions": "可用资料：无；模拟角色：service_reader；固定参考日期：2026-01-15",
+      "expected_status": "insufficient_basis",
+      "id": "C10",
+      "label": "空资料集不回答",
+      "question": "演示型号 A-100 的服务记录归档周期是多少天？",
+      "review_steps": [
+        "补充与型号、主题一致的现行资料，再重新核对。"
+      ],
+      "status": "insufficient_basis",
+      "status_label": "依据不足",
+      "validation": {
+        "errors": [],
+        "passed": true
+      }
+    }
+  ],
+  "disclosure": "公开合成样例；不是客户案例或成效。Python 标准库确定性规则，未调用模型，未实现生产 RAG。角色门禁只演示逻辑，真实身份与权限必须在服务端实施。",
+  "documents": [
+    {
+      "authority_level": 1,
+      "effective_from": "2025-01-01",
+      "effective_until": "2025-12-31",
+      "id": "D01",
+      "public_synthetic": true,
+      "required_role": "service_reader",
+      "revision": "1.0",
+      "status": "retired",
+      "text": "# 演示型号 A-100 服务记录归档规范（旧版，已失效）\n\n公开合成材料；组织、型号、内容均为虚构，不是客户资料或设备操作指令。\n\n第 2 条：演示型号 A-100 的服务记录归档周期为 30 天。\n\n本文件已于 2025-12-31 失效。当前查询不得将本文件作为现行结论的依据。\n角色条件 service_reader 只用于本地逻辑演示；生产权限必须在服务端实施。\n",
+      "title": "演示型号 A-100 服务记录归档规范（旧版，已失效）"
+    },
+    {
+      "authority_level": 1,
+      "effective_from": "2026-01-01",
+      "effective_until": null,
+      "id": "D02",
+      "public_synthetic": true,
+      "required_role": "service_reader",
+      "revision": "2.0",
+      "status": "effective",
+      "text": "# 演示型号 A-100 服务记录归档规范（现行）\n\n公开合成材料；组织、型号、内容均为虚构，不是客户资料或设备操作指令。\n\n第 2 条：演示型号 A-100 的服务记录归档周期为 14 天。\n\n本规范从 2026-01-01 生效。仅 service_reader 角色可读取内容并获取来源名称。\n本地角色字符串不是身份认证；生产权限必须在服务端实施。\n",
+      "title": "演示型号 A-100 服务记录归档规范（现行）"
+    },
+    {
+      "authority_level": 1,
+      "effective_from": "2026-01-01",
+      "effective_until": null,
+      "id": "D03",
+      "public_synthetic": true,
+      "required_role": "service_reader",
+      "revision": "1.0",
+      "status": "effective",
+      "text": "# 演示型号 A-100 服务记录归档专项说明（同级）\n\n公开合成材料；组织、型号、内容均为虚构，不是客户资料或设备操作指令。\n\n第 2 条：演示型号 A-100 的服务记录归档周期为 7 天。\n\n本说明从 2026-01-01 生效，效力等级与现行归档规范相同。\n本样例没有设定专项说明覆盖现行规范的规则。两者同时可用时构成冲突，必须转人工核对。\n仅 service_reader 角色可读取内容并获取来源名称。生产权限必须在服务端实施。\n",
+      "title": "演示型号 A-100 服务记录归档专项说明（同级）"
+    }
+  ],
+  "kind": "synthetic_deterministic_rule_reference",
+  "label": "知识查询交付参考样例",
+  "limitations": [
+    "没有自然语言模型、检索索引、向量库或生产 RAG",
+    "不验证真实身份，不构成服务端授权、数据隔离或端到端安全证明",
+    "只覆盖固定用例与有限关键词，不能外推到任意问法、文档或业务效果",
+    "固定参考日期用于重现结果，不代表今天的真实制度"
+  ],
+  "property_checks": [
+    {
+      "label": "资料输入顺序不改变结论",
+      "passed": true
+    },
+    {
+      "label": "内存中将事实改为 19 天后回答随事实变化",
+      "passed": true
+    },
+    {
+      "label": "内存中消除事实差异后不再报告冲突",
+      "passed": true
+    },
+    {
+      "label": "撤去角色后先拒绝且不输出来源",
+      "passed": true
+    }
+  ],
+  "reference_date": "2026-01-15",
+  "schema_version": "1.0",
+  "scope": [
+    "三份完全虚构的文档与型号",
+    "固定关键词和结构化事实匹配",
+    "不连接业务系统，不执行业务写入"
+  ],
+  "source_hashes": {
+    "README.md": "c86adf8cc4ed2e95346a174f0932298b00da37625111fc663f3b06136ea7110b",
+    "__init__.py": "3631db45999983a3420b06ea1e7326566d470ccbd0168d45f0f07d84410b7462",
+    "__main__.py": "b1009856df2c8fa80124579d278df350be33933298523f8866513445f7e80c39",
+    "build_sample.py": "b0ea60e2167af255eb69529d2b0b106a11bb1e06573c779df5357eed362eb4c8",
+    "docs/D01.md": "b44da2d00ea3fc2e4b971cfb59958fdc863ff0f179b31083448f7c8f40d5b38e",
+    "docs/D02.md": "1beabe3c0cb20a878308a019e33d5e0043568e6a6a012cb25c2b93b95d35afee",
+    "docs/D03.md": "3d8a159cca7e9b1e9bcdb2ec092266f70aa280a7cd89eafded7d785b26e79b43",
+    "engine.py": "cf1fb245664903398bb804284f248461c563f3492cdb7420a3174eb87782f663",
+    "fixtures/cases.json": "6e651f25115c132f35db232b71d58ba08ee47fc0786f12b024c80c2df0d6310c"
+  },
+  "summary": {
+    "failed": 0,
+    "passed": 10,
+    "property_passed": 4,
+    "property_total": 4,
+    "total": 10
+  }
+}
