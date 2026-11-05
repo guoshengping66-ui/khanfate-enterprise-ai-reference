@@ -63,6 +63,192 @@ python build_sample.py --output-dir ./generated/assets
 
 上述权限行为只验证本地规则分支。roles 是可以修改的输入字符串，真实系统必须由服务端验证身份并实施授权。
 
+## 从输入到完整输出，复核三个样本
+
+2026-11-05 从公开仓库重新匿名克隆后执行，十个固定用例与四个性质检查通过。以下三段输出由同版 `engine.evaluate` 实际计算，未从测试期望复制。资料判断日期固定为 2026-01-15。
+
+本次计算的[源码](https://github.com/guoshengping66-ui/khanfate-enterprise-ai-reference/blob/9e6f0c3eaee7e7b8ba2d7d6b61a911fed662672e/reference_sample/engine.py)、[固定输入](https://github.com/guoshengping66-ui/khanfate-enterprise-ai-reference/blob/9e6f0c3eaee7e7b8ba2d7d6b61a911fed662672e/reference_sample/fixtures/cases.json)及[完整十项结果](https://github.com/guoshengping66-ui/khanfate-enterprise-ai-reference/blob/9e6f0c3eaee7e7b8ba2d7d6b61a911fed662672e/generated/knowledge-reference-results.json)均固定到同一公开提交。
+
+### C01 · 同时传入旧版与现行资料
+
+D01 的 30 天已失效，D02 的 14 天在固定判断日期有效。实际响应引用 D02，保留版本、生效日期与第 2 条原文。复核时同时检查答案和引文。
+
+输入参数如下。
+
+```json
+{
+  "question": "演示型号 A-100 的服务记录归档周期是多少天？",
+  "available_documents": [
+    "D01",
+    "D02"
+  ],
+  "roles": [
+    "service_reader"
+  ]
+}
+```
+
+<details>
+<summary>展开实际计算的完整输出</summary>
+
+```json
+{
+  "answer": "根据当前有效且可读取的资料，演示型号 A-100 的服务记录归档周期为 14 天。",
+  "status": "answered",
+  "citations": [
+    {
+      "id": "D02",
+      "title": "演示型号 A-100 服务记录归档规范（现行）",
+      "version": "2.0",
+      "effective_from": "2026-01-01",
+      "section": "第 2 条：归档周期",
+      "excerpt": "第 2 条：演示型号 A-100 的服务记录归档周期为 14 天。"
+    }
+  ],
+  "checks": {
+    "read_permission_checked": true,
+    "only_authorized_citations": true,
+    "only_current_citations": true,
+    "conflict_detected": false,
+    "source_metadata_withheld": false,
+    "business_write_executed": false
+  },
+  "review_steps": [
+    "核对引文中的版本、生效日期与条款；本结论仅适用于本合成样例。"
+  ]
+}
+```
+
+</details>
+
+### C05 · 同级现行资料冲突时停在人工核对
+
+D02 与 D03 同为现行、同级，天数分别为 14 和 7。实际响应保留两条来源供授权读者核对，返回 conflict_review。此处的转人工是返回建议，程序没有创建工单。
+
+输入参数如下。
+
+```json
+{
+  "question": "演示型号 A-100 的服务记录归档周期是多少天？",
+  "available_documents": [
+    "D02",
+    "D03"
+  ],
+  "roles": [
+    "service_reader"
+  ]
+}
+```
+
+<details>
+<summary>展开实际计算的完整输出</summary>
+
+```json
+{
+  "answer": "当前有效的同级资料存在冲突，需要人工核对适用范围与覆盖关系；本次不选定归档周期。",
+  "status": "conflict_review",
+  "citations": [
+    {
+      "id": "D02",
+      "title": "演示型号 A-100 服务记录归档规范（现行）",
+      "version": "2.0",
+      "effective_from": "2026-01-01",
+      "section": "第 2 条：归档周期",
+      "excerpt": "第 2 条：演示型号 A-100 的服务记录归档周期为 14 天。"
+    },
+    {
+      "id": "D03",
+      "title": "演示型号 A-100 服务记录归档专项说明（同级）",
+      "version": "1.0",
+      "effective_from": "2026-01-01",
+      "section": "第 2 条：归档周期",
+      "excerpt": "第 2 条：演示型号 A-100 的服务记录归档周期为 7 天。"
+    }
+  ],
+  "checks": {
+    "read_permission_checked": true,
+    "only_authorized_citations": true,
+    "only_current_citations": true,
+    "conflict_detected": true,
+    "source_metadata_withheld": false,
+    "business_write_executed": false
+  },
+  "review_steps": [
+    "核对每份引文的版本、适用范围和效力等级。",
+    "由资料责任人澄清覆盖关系并更新资料后，再重新查询。"
+  ]
+}
+```
+
+</details>
+
+### C06 · 权限不足时检查完整响应
+
+输入模拟 guest 角色。实际响应为 access_denied，citations 为空，同时保留流程检查字段。复核完整 JSON，可以看到响应未返回 D01、D02 的来源编号、标题和引文。这只检验本地规则，真实身份与授权仍需在服务端实现。
+
+输入参数如下。
+
+```json
+{
+  "question": "演示型号 A-100 的服务记录归档周期是多少天？",
+  "available_documents": [
+    "D01",
+    "D02"
+  ],
+  "roles": [
+    "guest"
+  ]
+}
+```
+
+<details>
+<summary>展开实际计算的完整输出</summary>
+
+```json
+{
+  "answer": "当前身份无权读取此问题所需资料，请由授权人员核对访问权限。",
+  "status": "access_denied",
+  "citations": [],
+  "checks": {
+    "read_permission_checked": true,
+    "only_authorized_citations": true,
+    "only_current_citations": true,
+    "conflict_detected": false,
+    "source_metadata_withheld": true,
+    "business_write_executed": false
+  },
+  "review_steps": [
+    "由资料管理员核对身份与授权；授权完成后重新查询。"
+  ]
+}
+```
+
+</details>
+
+如需独立重现，先按上文克隆仓库。在仓库根目录执行下列 Python 脚本，输出会由输入重新计算。`expected` 仅用于测试器判定，以下调用未将它传入查询函数。
+
+```python
+import json
+from pathlib import Path
+from reference_sample.engine import evaluate, load_documents
+
+fixtures = Path("reference_sample/fixtures/cases.json")
+cases = json.loads(fixtures.read_text(encoding="utf-8"))["cases"]
+documents = load_documents()
+for case in cases:
+    if case["id"] in {"C01", "C05", "C06"}:
+        result = evaluate(
+            question=case["question"],
+            available_documents=case["available_documents"],
+            roles=case["roles"],
+            documents=documents,
+        )
+        print(case["id"])
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+```
+
+采购交流时，可按同样次序要求服务商展示获准使用的任务、实际输入、所用资料版本、完整响应和未通过项，再约定进入真实系统后的验收。
+
 ## 怎样确认结果由规则和资料计算而来
 
 fixtures/cases.json 保存输入与期望；engine.evaluate 不读取期望结果。测试器另行比较计算输出与期望。
